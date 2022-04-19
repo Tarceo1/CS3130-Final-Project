@@ -1,0 +1,81 @@
+---
+title: "Final Project"
+author: "Jacie Wright"
+date: "4/17/2022"
+output: html_document
+---
+
+```{r}
+
+## This code block reads and re-writes all of the data into "dataFrame" to be used in each analysis
+
+data <- read.csv('statsResponses v0.csv')
+dataFrame <- data
+  #GPA "success" range: 5 = Excellent, 4 = Good, 3 = Moderate, 2 = Poor, 1 = Bad
+  dataFrame$GPA[dataFrame$GPA == "3.5+"] = 5
+  dataFrame$GPA[dataFrame$GPA == "3-3.4"] = 4
+  dataFrame$GPA[dataFrame$GPA == "2.5-2.9"] = 3
+  dataFrame$GPA[dataFrame$GPA == "2-2.4"] = 2
+  dataFrame$GPA[dataFrame$GPA == "<1.9"] = 1
+  dataFrame$GPA = as.integer(dataFrame$GPA)
+  #Modify transfer GPAs
+  dataFrame$Transfers[dataFrame$Transfers == "3.5+"] = 5
+  dataFrame$Transfers[dataFrame$Transfers == "3-3.4"] = 4
+  dataFrame$Transfers[dataFrame$Transfers == "2.5-2.9"] = 3
+  dataFrame$Transfers[dataFrame$Transfers == "2-2.4"] = 2
+  dataFrame$Transfers[dataFrame$Transfers == "<1.9"] = 1
+ 
+  #Modify credits
+  dataFrame$Credits[dataFrame$Credits == "16+"] = 16
+  dataFrame$Credits = as.integer(dataFrame$Credits)
+  
+  #Modify concentration; no struggle concentrating (1) to struggle concentrating every day (4)
+  dataFrame$Concentration[dataFrame$Concentration == "Not at all"] = "1"
+  dataFrame$Concentration[dataFrame$Concentration == "Several days"] = "2"
+  dataFrame$Concentration[dataFrame$Concentration == "More than half of the days"] = "3"
+  dataFrame$Concentration[dataFrame$Concentration == "Nearly every day"] = "4"
+  dataFrame$Concentration = as.integer(dataFrame$Concentration)
+   
+  #Work Overall Part 1; I love what I'm doing (1) to I hate what I'm doing (5)
+  dataFrame$Work.Overall.Part.1[dataFrame$Work.Overall.Part.1 ==]
+  
+  #Work OVerall Part 2; my job will help my future (1) my job will not help my future (5)
+  
+  
+  #Hours of sleep; 
+  dataFrame$Hours.of.Sleep[dataFrame$Hours.of.Sleep == "0-2"] = "1"
+  dataFrame$Hours.of.Sleep[dataFrame$Hours.of.Sleep == "3-4"] = "2"
+  dataFrame$Hours.of.Sleep[dataFrame$Hours.of.Sleep == "5-6"] = "3"
+  dataFrame$Hours.of.Sleep[dataFrame$Hours.of.Sleep == "7-8"] = "4"
+  dataFrame$Hours.of.Sleep[dataFrame$Hours.of.Sleep == "8+"] = "5"
+  
+  #Struggle to sleep
+  
+  #Activity level; no exercise (1) to nearly every day in a week (4)
+  dataFrame$Activities[dataFrame$Activities == "0 days a week"] = "1"
+  dataFrame$Activities[dataFrame$Activities == "1-2 days a week"] = "2"
+  dataFrame$Activities[dataFrame$Activities == "3-4 days a week"] = "3"
+  dataFrame$Activities[dataFrame$Activities == "5-7 days a week"] = "4"
+  dataFrame$Activities = as.integer(dataFrame$Activities)
+  
+  #Activity durations; need a conditional check where if activity level = 1 set to 0
+  
+```
+
+## Introduction (Jc)
+
+## Data Collection
+
+### Limitations of collection
+
+## Data and Analysis
+
+### Limitations of Analysis
+
+
+``` {r}
+
+plot(dataFrame$GPA, type = "l", col = "red", xlim = c(0,length(dataFrame$Timestamp)), ylim = c(0,max(dataFrame$Hours.of.Studying)))
+lines(dataFrame$Hours.of.Studying, col = "black")
+
+```
