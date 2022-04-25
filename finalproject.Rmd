@@ -5,6 +5,14 @@ date: "4/17/2022"
 output: html_document
 ---
 
+```{r setup, include=FALSE}
+#install.packages(tidyverse)
+library(knitr)
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 ```{r}
 
 ## This code block reads and re-writes all of the data into "dataFrame" to be used in each analysis
@@ -37,7 +45,7 @@ dataFrame <- data
   dataFrame$Concentration = as.integer(dataFrame$Concentration)
    
   #Work Overall Part 1; I love what I'm doing (1) to I hate what I'm doing (5)
-  dataFrame$Work.Overall.Part.1[dataFrame$Work.Overall.Part.1 ==]
+  #dataFrame$Work.Overall.Part.1[dataFrame$Work.Overall.Part.1 ==]
   
   #Work OVerall Part 2; my job will help my future (1) my job will not help my future (5)
   
@@ -60,6 +68,8 @@ dataFrame <- data
   
   #Activity durations; need a conditional check where if activity level = 1 set to 0
   
+  
+
 ```
 
 ## Introduction (Jc)
@@ -79,3 +89,83 @@ plot(dataFrame$GPA, type = "l", col = "red", xlim = c(0,length(dataFrame$Timesta
 lines(dataFrame$Hours.of.Studying, col = "black")
 
 ```
+
+
+``` {r}
+
+######## Tony added code 04/22/2022 In-Progress ###############
+
+#Modify hours of sleep to be numeric
+dataFrame$Hours.of.Sleep = as.integer(dataFrame$Hours.of.Sleep)
+
+#Create list of data without NAs in commute times
+data_no_na_commute_times = dataFrame %>% drop_na(Commute.Time)
+
+
+#lines(x= 0:100, y = dunif(seq(0, 1, 0.01), min=0, max=50), col="green")
+#lines(1.35*dnorm(0:100, mean(temp_data_row_means), sd(temp_data_row_means)), col='purple')
+#lines(3.5*dpois(0:100, mean(temp_data_row_means)), col='red')
+#lines(7*dexp(0:100, 1/mean(temp_data_row_means)), col='blue')
+#lines(3.5*dgamma(0:100, mean(temp_data_row_means)), col='orange')
+
+#legend(48, 0.25, legend=c("Uniform Dist", "Normal Dist", "Poisson Dist", "Exponential Dist", "Gamma Dist"),
+       #col=c("green", "purple", "red", "blue", "orange"), lty=1, cex=0.75)
+
+########################### VIEW THE RELATIONSHIP BETWEEN EXERCISE AND GPA ##############
+
+
+#Create data
+set.seed(1)
+ 
+# Base histogram
+hist(dataFrame$Activities,  col=rgb(1,0,0,0.5), xlab="Levels of Exercise and GPA", 
+     ylab="Response count", main="" )
+
+# Second with add=T to plot on top
+hist(dataFrame$GPA, col=rgb(0,0,1,0.5), add=T)
+
+# Add legend
+legend("topright", legend=c("Exercise","GPA"), col=c(rgb(1,0,0,0.5), 
+     rgb(0,0,1,0.5)), pt.cex=2, pch=15 )
+
+
+# Create scatter plot for with GPA as y-axis and Exercise as X-value
+
+#I count the occurence of each couple of values. Eg : number of time a=1 and b=1, number of time a=1 and b=2 etc...
+AA <- xyTable(dataFrame$GPA,dataFrame$Activities)
+ 
+#Now I can plot this ! I represent the dots as big as the couple occurs often
+coeff_bigger <- 2
+plot(AA$x , AA$y , cex=AA$number*coeff_bigger  , pch=16 , col=rgb(0,0,1,0.5) , xlab= "Gpa levels" , ylab="Exercise levels" , xlim=c(0,6) , ylim=c(0,6), main="Excercse levels per week VS GPA")
+text(AA$x , AA$y , AA$number )
+ 
+#Note : It's easy to make a function that will compute this kind of plot automaticaly :
+represent_discrete_variable <- function(var1, var2 , coeff_bigger){
+  AA=xyTable(var1,var2)
+  plot(AA$x , AA$y , cex=AA$number*coeff_bigger  , pch=16 , col="chocolate1" , xlab= "value of a" , ylab="value of b" )
+  text (AA$x , AA$y , AA$number )
+}
+
+
+########## Comparison for subquestion of exercise levels and energy levels ##############################
+
+# Base histogram
+hist(dataFrame$Energy.Level,  col=rgb(0,1,0,0.5), xlab="Levels of Exercise and Energy", 
+     ylab="Response Count", main="Exercise per Week vs Energy Levels of Last Two Weeks", ylim = c(0,25))
+
+# Second with add=T to plot on top
+hist(dataFrame$Activities, col=rgb(1,0,0,0.5), add=T)
+
+# Add legend
+legend("topright", legend=c("Energy Levels","Exercise"), col=c(rgb(0,1,0,0.5), 
+     rgb(1,0,0,0.5)), pt.cex=2, pch=15 )
+
+```
+
+
+### Exercise and GPA comparison
+
+When looking at the scatter plot with variable size graphs above, we can see a uptick in GPA with more frequent exercise sessions throughout the week. 
+
+### Exercise and Energl Levels
+The data shows that students with a lower frequency of exercise sessions per week have increase energy levels.
