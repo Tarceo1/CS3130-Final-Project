@@ -169,3 +169,32 @@ When looking at the scatter plot with variable size graphs above, we can see a u
 
 ### Exercise and Energl Levels
 The data shows that students with a lower frequency of exercise sessions per week have increase energy levels.
+
+###Hours of Credits and GPA
+
+```{r}
+
+ggplot(dataFrame, aes(x=Credits, y=GPA)) + 
+    geom_point(
+        color="orange",
+        fill="#69b3a2",
+        shape=21,
+        alpha=0.5,
+        size=6,
+        stroke = 2
+        ) + ggtitle("Comparision between Number of Credits and GPA")
+```
+
+###Between the STEM and Non-STEM Majors, which one of them has the higher GPA?
+
+```{r}
+STEMMaj_Data<- subset(dataFrame, Major == "Yes")
+NONSTEMMaj_Data<- subset(dataFrame, Major == "No")
+
+STEMMaj_Data %>% ggplot( aes(x=GPA)) +
+    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8)
+NONSTEMMaj_Data %>% ggplot( aes(x=GPA)) +
+    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8)
+
+```
+
