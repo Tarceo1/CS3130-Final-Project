@@ -161,6 +161,21 @@ legend("topright", legend=c("Energy Levels","Exercise"), col=c(rgb(0,1,0,0.5),
      rgb(1,0,0,0.5)), pt.cex=2, pch=15 )
 
 ```
+```{r}
+########## Hypothesis Test for Exercise & GPA vs No Exercise and GPA ##############################
+
+no_exercise_GPAs = dataFrame$GPA[dataFrame$Activities == 1]
+exercise_GPAs = dataFrame$GPA[dataFrame$Activities != 1]
+
+#For the t.test we want to make the claim "Exercise of any frequency raises a student GPA". This mean that our null hypothesis we must claim that the opposite is true or that "There is no difference in GPAs" is true.
+
+#If we run a t.test with 0.95 confidence level, our p-value must be lower than 0.05 for us to refuse the null hypothesis that "There is no difference in GPAs" is true.
+#Also, if the confidence interval holds the value of 0.0 then this means that our difference in means from both sets are negligible. 
+
+t.test(no_exercise_GPAs, exercise_GPAs, conf.level = 0.95)
+
+
+```
 
 
 ### Exercise and GPA comparison
