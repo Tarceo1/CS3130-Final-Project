@@ -207,9 +207,9 @@ STEMMaj_Data<- subset(dataFrame, Major == "Yes")
 NONSTEMMaj_Data<- subset(dataFrame, Major == "No")
 
 STEMMaj_Data %>% ggplot( aes(x=GPA)) +
-    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8)
+    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8) + ggtitle("Distribution of GPA among STEM students.")
 NONSTEMMaj_Data %>% ggplot( aes(x=GPA)) +
-    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8)
+    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8)+ ggtitle("Distribution of GPA among Non-STEM students.")
 
 ```
 
